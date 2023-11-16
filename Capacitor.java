@@ -17,6 +17,9 @@ public class Capacitor extends Component {
   }
 
   public void setArea(double a) {
+    if(a < 0){
+      throw new RuntimeException("Area cannot be negative");
+    }
     this.area = a;
   }
 
