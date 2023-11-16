@@ -20,6 +20,8 @@ public class Main {
     boolean toAddNewC = true;
     boolean toAddNewI = true;
 
+
+    //loop for capacitor's info as user input
     while (toAddNewC) {
       System.out.print("Are you adding capacitors? (Y/N): ");
       String loop_control = scanner.next();
@@ -35,10 +37,7 @@ public class Main {
       System.out.print("Enter Capacitor separated distance (mm): ");
       double _d = scanner.nextDouble();
 
-      // creating a new capacitor object.
-      Capacitor newCapacitor = new Capacitor();
-
-      // setting the user inputs.
+      Capacitor newCapacitor = new Capacitor(); // creating a new capacitor object.
       newCapacitor.setArea(_a);
       newCapacitor.setDistance(_d);
 
@@ -46,6 +45,10 @@ public class Main {
       tankCircuit.add(newCapacitor);
     }
 
+
+    
+
+    //loop for inductor's info as input
     while (toAddNewI) {
       System.out.print("Are you adding inductors? (Y/N): ");
       String loop_control = scanner.next();
@@ -59,25 +62,23 @@ public class Main {
       System.out.print("Enter Inductance of the inductor (uH): ");
       double _l = scanner.nextDouble();
 
-      // creating a new inductor object.
-      Inductor newIndc = new Inductor();
-
-      // setting the user inputs.
+      Inductor newIndc = new Inductor(); // creating a new inductor object.
       newIndc.setL(_l);
 
-      // adding the newly created inductor to list.
-      tankCircuit.add(newIndc);
+      tankCircuit.add(newIndc); // adding the newly created inductor to list.
     }
 
     // calculate total capacitance, inductance, and resonant frequency
     for (int idx = 0; idx < tankCircuit.size(); idx++) {
         total_cost += tankCircuit.get(idx).getCost(); // total cost
-
         if (tankCircuit.get(idx) instanceof Capacitor) { //if Capacitor
             total_capacitance += ((Capacitor) tankCircuit.get(idx)).getCapacitance();
-            
-        } else if (tankCircuit.get(idx) instanceof Inductor) { //if Inductor
+        } 
+        else if (tankCircuit.get(idx) instanceof Inductor) { //if Inductor
             total_inductance += ((Inductor) tankCircuit.get(idx)).getL();
+        }
+        else{
+            System.out.println("Unknown circuit element");
         }
     }
 
@@ -92,9 +93,10 @@ public class Main {
     for (int idx = 0; idx < tankCircuit.size(); idx++) {
       if (tankCircuit.get(idx) instanceof Capacitor) { //if Capacitor
             ((Capacitor) tankCircuit.get(idx)).printInfo();
-        } else if (tankCircuit.get(idx) instanceof Inductor) { //if Inductor
-            ((Inductor) tankCircuit.get(idx)).printInfo();
-        }
+      } 
+      else if (tankCircuit.get(idx) instanceof Inductor) { //if Inductor
+          ((Inductor) tankCircuit.get(idx)).printInfo();
+      }
     }
 
     System.out.println("Total cost: $" + total_cost);
